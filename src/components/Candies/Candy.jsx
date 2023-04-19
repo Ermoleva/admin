@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
-const AdminPanel = () => {
+const Candy = () => {
   const [data, setData] = useState([]);
 
   const fetchData = async () => {
@@ -113,4 +113,4 @@ const AdminPanel = () => {
   
 };
 
-export default AdminPanel;
+export default Candy;
