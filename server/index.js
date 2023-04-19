@@ -24,3 +24,14 @@ app.put('/api/data/:id', express.json(), (req, res) => {
     res.json({ status: 'success', message: 'Data updated successfully' });
   });
 app.listen(3001, () => console.log('Server running on port 3001'));
+app.post('/api/data', express.json(), (req, res) => {
+    const newItem = req.body;
+  
+    const data = JSON.parse(fs.readFileSync(path.join(__dirname, 'data.json'), 'utf8'));
+  
+    data.push(newItem);
+  
+    fs.writeFileSync(path.join(__dirname, 'data.json'), JSON.stringify(data), 'utf8');
+  
+    res.json({ status: 'success', message: 'New item added successfully' });
+  });
