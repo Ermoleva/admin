@@ -36,29 +36,6 @@ app.post('/api/data', express.json(), (req, res) => {
     res.json({ status: 'success', message: 'New item added successfully' });
   });
 
-  // В server/index.js
-app.get('/api/lunch', (req, res) => {
-  const lunchData = JSON.parse(fs.readFileSync(path.join(__dirname, 'lunch.json'), 'utf8'));
-  res.json(lunchData);
-});
-
-app.put('/api/lunch/:id', (req, res) => {
-  const lunchData = JSON.parse(fs.readFileSync(path.join(__dirname, 'lunch.json'), 'utf8'));
-  const updatedItem = req.body;
-  const index = lunchData.findIndex((item) => item.id === parseInt(req.params.id, 10));
-  lunchData[index] = updatedItem;
-  fs.writeFileSync(path.join(__dirname, 'lunch.json'), JSON.stringify(lunchData));
-  res.json(updatedItem);
-});
-
-app.post('/api/lunch', (req, res) => {
-  const lunchData = JSON.parse(fs.readFileSync(path.join(__dirname, 'lunch.json'), 'utf8'));
-  const newItem = req.body;
-  lunchData.push(newItem);
-  fs.writeFileSync(path.join(__dirname, 'lunch.json'), JSON.stringify(lunchData));
-  res.json(newItem);
-});
-
   
   const port = 3001;
   app.listen(port, () => {
