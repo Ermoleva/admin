@@ -149,11 +149,10 @@ app.post('/api/data', express.json(), (req, res) => {
       app.put('/api/article/:id', express.json(), (req, res) => {
         const { id } = req.params;
         const updatedArticleItem = req.body;
-        updatedArticleItem.id = parseInt(updatedArticleItem.id);
-  
+      
         const dataArticle = JSON.parse(fs.readFileSync(path.join(__dirname, 'article.json'), 'utf8'));
       
-        const updatedArticleData = dataArticle.map((item) => (parseInt(item.id) === id ? updatedArticleItem : item));
+        const updatedArticleData = dataArticle.map((item) => (item.id === parseInt(id) ? updatedArticleItem : item));
       
         fs.writeFileSync(path.join(__dirname, 'article.json'), JSON.stringify(updatedArticleData), 'utf8');
       

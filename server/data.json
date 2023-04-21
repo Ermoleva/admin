@@ -1,1 +1,52 @@
-[{"id":1555,"title":"Имбирные конфеты с апельсином1223","description":"Состав: Подсушенный миндаль, медовые финики, пряный имбирь, апельсин, миндальные лепестки. Не содержат сахара!","image":"product-img.png","proteins":8,"fats":20,"carbohydrates":36,"kcal":346,"price":26,"count":0,"priceTotal":26},{"id":1554,"title":"Имбирные конфеты с апельсином","description":"Состав: Подсушенный миндаль, медовые финики, пряный имбирь, апельсин, миндальные лепестки. Не содержат сахара!","image":"product-img.png","proteins":8,"fats":20,"carbohydrates":36,"kcal":346,"price":26,"count":0,"priceTotal":26},{"id":6,"title":"вкусняха","description":"нямням","proteins":"6","fats":"4","carbohydrates":"5","kcal":"45","price":"20","count":0,"priceTotal":"20"},{"id":4,"title":"лапландия","description":"холодная","proteins":"33","fats":"44","carbohydrates":"33","kcal":"44","price":"55","count":0,"priceTotal":"55"}]
+[
+  {
+    "id": 1555,
+    "title": "Имбирные конфеты с апельсином1223",
+    "description": "Состав: Подсушенный миндаль, медовые финики, пряный имбирь, апельсин, миндальные лепестки. Не содержат сахара!",
+    "image": "product-img.png",
+    "proteins": 8,
+    "fats": 20,
+    "carbohydrates": 36,
+    "kcal": 346,
+    "price": 26,
+    "count": 0,
+    "priceTotal": 26
+  },
+  {
+    "id": 1554,
+    "title": "Имбирные конфеты с апельсином",
+    "description": "Состав: Подсушенный миндаль, медовые финики, пряный имбирь, апельсин, миндальные лепестки. Не содержат сахара!",
+    "image": "product-img.png",
+    "proteins": 8,
+    "fats": 20,
+    "carbohydrates": 36,
+    "kcal": 346,
+    "price": 26,
+    "count": 0,
+    "priceTotal": 26
+  },
+  {
+    "id": 6,
+    "title": "вкусняха",
+    "description": "нямням",
+    "proteins": "6",
+    "fats": "4",
+    "carbohydrates": "5",
+    "kcal": "45",
+    "price": "20",
+    "count": 0,
+    "priceTotal": "20"
+  },
+  {
+    "id": 4,
+    "title": "лапландия",
+    "description": "холодная",
+    "proteins": "33",
+    "fats": "44",
+    "carbohydrates": "33",
+    "kcal": "44",
+    "price": "55",
+    "count": 0,
+    "priceTotal": "55"
+  }
+]
