@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import "./lunch.scss"
 import Swal from 'sweetalert2';
 
 const Lunch = () => {
@@ -99,22 +100,25 @@ const Lunch = () => {
   
 
   return (
-    <div className="admin-panel">
-        <button onClick={handleAddNewItem}>Add new item</button>
+    <div className="lunch">
+      <div className="lunch__top">
+        <h1 className="lunch__name">Ланч</h1>
+        <button className='lunch__add' onClick={handleAddNewItem}>+ Добавить новый продукт</button>
+        </div>
       {dataLunch.map((item) => (
         <div key={item.id} className="item">
-          <h2 onClick={() => handleFieldClick(item.id, 'title', item.title)}>{item.title}</h2>
-          <p onClick={() => handleFieldClick(item.id, 'description', item.description)}>{item.description}</p>
-          <p onClick={() => handleFieldClick(item.id, 'gram', item.gram)}>Gram: {item.proteins}</p>
-          <p onClick={() => handleFieldClick(item.id, 'kcal', item.kcal)}>Kcal: {item.kcal}</p>
-          <p onClick={() => handleFieldClick(item.id, 'price', item.price)}>Price: {item.price}</p>
-          <p onClick={() => handleFieldClick(item.id, 'count', item.count)}>Count: {item.count}</p>
-          <p onClick={() => handleFieldClick(item.id, 'priceTotal', item.priceTotal)}>Price Total: {item.priceTotal}</p>
+          <h2 className='lunch__title' onClick={() => handleFieldClick(item.id, 'title', item.title)}>{item.title}</h2>
+          <p className='lunch__text' onClick={() => handleFieldClick(item.id, 'gram', item.gram)}>Gram: {item.proteins}</p>
+          <p className='lunch__text' onClick={() => handleFieldClick(item.id, 'description', item.description)}>{item.description}</p>
+          <p className='lunch__text' onClick={() => handleFieldClick(item.id, 'kcal', item.kcal)}>Kcal: {item.kcal}</p>
+          <p className='lunch__text' onClick={() => handleFieldClick(item.id, 'price', item.price)}>Price: {item.price}</p>
+          <p className='lunch__text' onClick={() => handleFieldClick(item.id, 'count', item.count)}>Count: {item.count}</p>
+          <p className='lunch__text' onClick={() => handleFieldClick(item.id, 'priceTotal', item.priceTotal)}>Price Total: {item.priceTotal}</p>
           <button
-            className="btn btn-danger"
+            className="lunch__del"
             onClick={() => deleteLunch(item.id)}
           >
-            Удалить
+            X Удалить
           </button>
         </div>
       ))}

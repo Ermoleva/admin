@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import './que.scss'
 import Swal from 'sweetalert2';
 
 const Que = () => {
@@ -92,18 +93,21 @@ const Que = () => {
   
 
   return (
-    <div className="admin-panel">
-        <button onClick={handleAddNewItem}>Add new item</button>
+    <div className="que">
+      <div className="que__top">
+        <h1 >Вопросы</h1>
+        <button className='que__add' onClick={handleAddNewItem}>+ Добавить новый продукт</button>
+        </div>
       {dataQue.map((item) => (
         <div key={item.id} className="item">
-          <h2 onClick={() => handleFieldClick(item.id, 'title', item.title)}>{item.title}</h2>
-          <p onClick={() => handleFieldClick(item.id, 'description', item.description)}>{item.description}</p>
+          <h2 className='que__title' onClick={() => handleFieldClick(item.id, 'title', item.title)}>{item.title}</h2>
+          <p className='que__text' onClick={() => handleFieldClick(item.id, 'description', item.description)}>{item.description}</p>
           
           <button
-            className="btn btn-danger"
+            className="que__del"
             onClick={() => deleteQue(item.id)}
           >
-            Удалить
+            X Удалить
           </button>
         </div>
       ))}

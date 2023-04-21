@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import "./candy.scss"
 import Swal from "sweetalert2";
 axios.defaults.baseURL = 'http://localhost:3001';
 const Candy = () => {
@@ -100,45 +101,48 @@ const Candy = () => {
   };
 
   return (
-    <div className="admin-panel">
-      <button onClick={handleAddNewItem}>Add new item</button>
+    <div className="candy">
+      <div className="candy__top">
+      <h1 className="candy__name">Candies</h1>
+      <button className="candy__add" onClick={handleAddNewItem}>+Добавить новый продукт</button>
+      </div>
       {data.map((item) => (
         <div key={item.id} className="item">
-          <h2 onClick={() => handleFieldClick(item.id, "title", item.title)}>
+          <h2 className="candy__title" onClick={() => handleFieldClick(item.id, "title", item.title)}>
             {item.title}
           </h2>
-          <p
+          <p className="candy__text"
             onClick={() =>
               handleFieldClick(item.id, "description", item.description)
             }
           >
             {item.description}
           </p>
-          <p
+          <p className="candy__text"
             onClick={() => handleFieldClick(item.id, "proteins", item.proteins)}
           >
             Proteins: {item.proteins}
           </p>
-          <p onClick={() => handleFieldClick(item.id, "fats", item.fats)}>
+          <p className="candy__text" onClick={() => handleFieldClick(item.id, "fats", item.fats)}>
             Fats: {item.fats}
           </p>
-          <p
+          <p className="candy__text"
             onClick={() =>
               handleFieldClick(item.id, "carbohydrates", item.carbohydrates)
             }
           >
             Carbohydrates: {item.carbohydrates}
           </p>
-          <p onClick={() => handleFieldClick(item.id, "kcal", item.kcal)}>
+          <p className="candy__text" onClick={() => handleFieldClick(item.id, "kcal", item.kcal)}>
             Kcal: {item.kcal}
           </p>
-          <p onClick={() => handleFieldClick(item.id, "price", item.price)}>
+          <p className="candy__text" onClick={() => handleFieldClick(item.id, "price", item.price)}>
             Price: {item.price}
           </p>
-          <p onClick={() => handleFieldClick(item.id, "count", item.count)}>
+          <p className="candy__text" onClick={() => handleFieldClick(item.id, "count", item.count)}>
             Count: {item.count}
           </p>
-          <p
+          <p className="candy__text"
             onClick={() =>
               handleFieldClick(item.id, "priceTotal", item.priceTotal)
             }
@@ -146,10 +150,10 @@ const Candy = () => {
             Price Total: {item.priceTotal}
           </p>
           <button
-            className="btn btn-danger"
+            className="candy__del"
             onClick={() => deleteCandy(item.id)}
           >
-            Удалить
+            X Удалить
           </button>
         </div>
       ))}

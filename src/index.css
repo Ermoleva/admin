@@ -14,3 +14,10 @@ code {
 .App{
   display: flex;
 }
+.content{
+  width: calc(100% - 300px);
+  margin-left: 30px;
+}
+.swal2-confirm.swal2-styled{
+  background: #64D370 !important;
+}
