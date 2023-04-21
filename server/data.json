@@ -1,1 +1,78 @@
-[{"id":1551,"title":"Имбирные конфеты с апельсином112","description":"Состав: Подсушенный миндаль, медовые финики, пряный имбирь, апельсин, миндальные лепестки. Не содержат сахара!","image":"product-img.png","proteins":8,"fats":"2","carbohydrates":36,"kcal":346,"price":26,"count":0,"priceTotal":26},{"id":1552,"title":"Имбирные конфеты с клубрникой","description":"Состав: Подсушенный миндаль, медовые финики, пряный имбирь, апельсин, миндальные лепестки. Не содержат сахара!","image":"product-img.png","proteins":8,"fats":20,"carbohydrates":36,"kcal":346,"price":26,"count":0,"priceTotal":26},{"id":1555,"title":"Имбирные конфеты с апельсином1223","description":"Состав: Подсушенный миндаль, медовые финики, пряный имбирь, апельсин, миндальные лепестки. Не содержат сахара!","image":"product-img.png","proteins":8,"fats":20,"carbohydrates":36,"kcal":346,"price":26,"count":0,"priceTotal":26},{"id":1554,"title":"Имбирные конфеты с апельсином","description":"Состав: Подсушенный миндаль, медовые финики, пряный имбирь, апельсин, миндальные лепестки. Не содержат сахара!","image":"product-img.png","proteins":8,"fats":20,"carbohydrates":36,"kcal":346,"price":26,"count":0,"priceTotal":26},{"id":5,"title":"конфетка","description":"вкусная","proteins":"4","fats":"3","carbohydrates":"6","kcal":"78","price":"22","count":"0","priceTotal":"22"},{"id":6,"title":"вкусняха","description":"нямням","proteins":"6","fats":"4","carbohydrates":"5","kcal":"45","price":"20","count":0,"priceTotal":"20"}]
+[
+  {
+    "id": 1551,
+    "title": "Имбирные конфеты с апельсином1121",
+    "description": "Состав: Подсушенный миндаль, медовые финики, пряный имбирь, апельсин, миндальные лепестки. Не содержат сахара!",
+    "image": "product-img.png",
+    "proteins": 8,
+    "fats": "2",
+    "carbohydrates": 36,
+    "kcal": 346,
+    "price": 26,
+    "count": 0,
+    "priceTotal": 26
+  },
+  {
+    "id": 1552,
+    "title": "Имбирные конфеты с клубрникой",
+    "description": "Состав: Подсушенный миндаль, медовые финики, пряный имбирь, апельсин, миндальные лепестки. Не содержат сахара!",
+    "image": "product-img.png",
+    "proteins": 8,
+    "fats": 20,
+    "carbohydrates": 36,
+    "kcal": 346,
+    "price": 26,
+    "count": 0,
+    "priceTotal": 26
+  },
+  {
+    "id": 1555,
+    "title": "Имбирные конфеты с апельсином1223",
+    "description": "Состав: Подсушенный миндаль, медовые финики, пряный имбирь, апельсин, миндальные лепестки. Не содержат сахара!",
+    "image": "product-img.png",
+    "proteins": 8,
+    "fats": 20,
+    "carbohydrates": 36,
+    "kcal": 346,
+    "price": 26,
+    "count": 0,
+    "priceTotal": 26
+  },
+  {
+    "id": 1554,
+    "title": "Имбирные конфеты с апельсином",
+    "description": "Состав: Подсушенный миндаль, медовые финики, пряный имбирь, апельсин, миндальные лепестки. Не содержат сахара!",
+    "image": "product-img.png",
+    "proteins": 8,
+    "fats": 20,
+    "carbohydrates": 36,
+    "kcal": 346,
+    "price": 26,
+    "count": 0,
+    "priceTotal": 26
+  },
+  {
+    "id": 5,
+    "title": "конфетка",
+    "description": "вкусная",
+    "proteins": "4",
+    "fats": "3",
+    "carbohydrates": "6",
+    "kcal": "78",
+    "price": "22",
+    "count": "0",
+    "priceTotal": "22"
+  },
+  {
+    "id": 6,
+    "title": "вкусняха",
+    "description": "нямням",
+    "proteins": "6",
+    "fats": "4",
+    "carbohydrates": "5",
+    "kcal": "45",
+    "price": "20",
+    "count": 0,
+    "priceTotal": "20"
+  }
+]

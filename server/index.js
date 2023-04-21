@@ -35,6 +35,19 @@ app.post('/api/data', express.json(), (req, res) => {
   
     res.json({ status: 'success', message: 'New item added successfully' });
   });
+  app.delete('/api/data/:id', (req, res) => {
+    const id = parseInt(req.params.id);
+    const data = JSON.parse(fs.readFileSync(path.join(__dirname, 'data.json'), 'utf8'));
+  
+    const index = data.candies.findIndex(candy => candy.id === id);
+    if (index !== -1) {
+      data.candies.splice(index, 1);
+      fs.writeFileSync(path.join(__dirname, 'data.json'), JSON.stringify(data, null, 2));
+      res.status(200).json({ message: 'Candy item deleted.' });
+    } else {
+      res.status(404).json({ message: 'Candy item not found.' });
+    }
+  });
 
 
 
