@@ -3,7 +3,7 @@ import Aside from "./components/Aside/Aside";
 import { Route, Routes } from "react-router-dom";
 import Candy from "./components/Candies/Candy";
 import Lunch from "./components/Lunches/Lunch";
-import Question from "./components/Questions/Question";
+import Que from "./components/Que/Que";
 
 
 function App() {
@@ -14,7 +14,7 @@ function App() {
         <Routes>
           <Route path="/candyitem" element={<Candy />} />
           <Route path="/lunch" element={<Lunch/>} />
-          <Route path="/que" element={<Question/>} />
+          <Route path="/que" element={<Que/>} />
         </Routes>
       </div>
     </div>

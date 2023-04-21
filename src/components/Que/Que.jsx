@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
-const Questions = () => {
+const Que = () => {
   const [dataQue, setDataQue] = useState([]);
 
   const fetchData = async () => {
@@ -111,4 +111,4 @@ const Questions = () => {
   
 };
 
-export default Questions;
+export default Que;
