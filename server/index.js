@@ -101,17 +101,19 @@ app.post('/api/data', express.json(), (req, res) => {
       res.json(dataQue);
     });
     app.put('/api/que/:id', express.json(), (req, res) => {
-        const { id } = req.params;
-        const updatedQueItem = req.body;
-      
-        const dataQue = JSON.parse(fs.readFileSync(path.join(__dirname, 'que.json'), 'utf8'));
-      
-        const updatedQueData = dataQue.map((item) => (item.id === parseInt(id) ? updatedQueItem : item));
-      
-        fs.writeFileSync(path.join(__dirname, 'que.json'), JSON.stringify(updatedQueData), 'utf8');
-      
-        res.json({ status: 'success', message: 'Data updated successfully' });
-      });
+      const { id } = req.params;
+      const updatedQueItem = req.body;
+      updatedQueItem.id = parseInt(updatedQueItem.id);
+
+      const dataQue = JSON.parse(fs.readFileSync(path.join(__dirname, 'que.json'), 'utf8'));
+    
+      const updatedQueData = dataQue.map((item) => (parseInt(item.id) === id ? updatedQueItem : item));
+    
+      fs.writeFileSync(path.join(__dirname, 'que.json'), JSON.stringify(updatedQueData), 'utf8');
+    
+      res.json({ status: 'success', message: 'Data updated successfully' });
+    });
+    
     
     app.post('/api/que', express.json(), (req, res) => {
         const newQueItem = req.body;
@@ -138,6 +140,52 @@ app.post('/api/data', express.json(), (req, res) => {
           res.status(404).json({ message: 'Question item not found.' });
         }
       });
+
+
+      app.get('/api/article', (req, res) => {
+        const dataArticle = JSON.parse(fs.readFileSync(path.join(__dirname, 'article.json'), 'utf8'));
+        res.json(dataArticle);
+      });
+      app.put('/api/article/:id', express.json(), (req, res) => {
+        const { id } = req.params;
+        const updatedArticleItem = req.body;
+        updatedArticleItem.id = parseInt(updatedArticleItem.id);
+  
+        const dataArticle = JSON.parse(fs.readFileSync(path.join(__dirname, 'article.json'), 'utf8'));
+      
+        const updatedArticleData = dataArticle.map((item) => (parseInt(item.id) === id ? updatedArticleItem : item));
+      
+        fs.writeFileSync(path.join(__dirname, 'article.json'), JSON.stringify(updatedArticleData), 'utf8');
+      
+        res.json({ status: 'success', message: 'Data updated successfully' });
+      });
+      
+      
+      app.post('/api/article', express.json(), (req, res) => {
+          const newArticleItem = req.body;
+        
+          const dataArticle = JSON.parse(fs.readFileSync(path.join(__dirname, 'article.json'), 'utf8'));
+        
+          dataArticle.push(newArticleItem);
+        
+          fs.writeFileSync(path.join(__dirname, 'article.json'), JSON.stringify(dataArticle), 'utf8');
+        
+          res.json({ status: 'success', message: 'New item added successfully' });
+        });
+    
+        app.delete('/api/article/:id', (req, res) => {
+          const id = parseInt(req.params.id);
+          const article = JSON.parse(fs.readFileSync(path.join(__dirname, 'article.json'), 'utf8'));
+        
+          const index = article.findIndex(article => article.id === id);
+          if (index !== -1) {
+            article.splice(index, 1);
+            fs.writeFileSync(path.join(__dirname, 'article.json'), JSON.stringify(article, null, 2));
+            res.status(200).json({ message: 'article item deleted.' });
+          } else {
+            res.status(404).json({ message: 'article item not found.' });
+          }
+        });
   
 
   

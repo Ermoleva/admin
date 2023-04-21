@@ -2,13 +2,13 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
-const Que = () => {
-  const [dataQue, setDataQue] = useState([]);
+const Article = () => {
+  const [dataArticle, setDataArticle] = useState([]);
 
   const fetchData = async () => {
     try {
-      const result = await axios.get('http://localhost:3001/api/que');
-      setDataQue(result.data);
+      const result = await axios.get('http://localhost:3001/api/article');
+      setDataArticle(result.data);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -25,15 +25,15 @@ const Que = () => {
       showCancelButton: true,
     }).then((result) => {
       if (result.isConfirmed) {
-        const updatedQueData = dataQue.map((item) =>
+        const updatedArticleData = dataArticle.map((item) =>
           item.id === id ? { ...item, [field]: result.value } : item
         );
-        setDataQue(updatedQueData);
+        setDataArticle(updatedArticleData);
   
-        const updatedQueItem = updatedQueData.find((item) => item.id === id);
+        const updatedArticleItem = updatedArticleData.find((item) => item.id === id);
   
         axios
-          .put(`http://localhost:3001/api/que/${id}`, updatedQueItem)
+          .put(`http://localhost:3001/api/article/${id}`, updatedArticleItem)
           .then((response) => {
             console.log(response.data);
           })
@@ -46,28 +46,33 @@ const Que = () => {
 
   const handleAddNewItem = () => {
     Swal.fire({
-      title: 'Add new question',
+      title: 'Add new Article',
       html: `
         <input id="title" class="swal2-input" placeholder="Title">
-        <input id="description" class="swal2-input" placeholder="Description">
+        <input id="info1" class="swal2-input" placeholder="info1">
+        <input id="info2" class="swal2-input" placeholder="info2">
+       
+        <input id="info3" class="swal2-input" placeholder="info3">
         
       `,
       focusConfirm: false,
       preConfirm: () => {
         
         return {
-          id: dataQue.length + 1,
+          id: dataArticle.length + 1,
           title: document.getElementById('title').value,
-          description: document.getElementById('description').value
+          info1: document.getElementById('info1').value,
+          info2: document.getElementById('info2').value,
+          info3: document.getElementById('info3').value
         };
       },
     }).then((result) => {
       if (result.value) {
-        const newQueItem = result.value;
-        setDataQue([...dataQue, newQueItem]);
+        const newArticleItem = result.value;
+        setDataArticle([...dataArticle, newArticleItem]);
   
         axios
-          .post('http://localhost:3001/api/que', newQueItem)
+          .post('http://localhost:3001/api/article', newArticleItem)
           .then((response) => {
             console.log(response.data);
           })
@@ -79,12 +84,12 @@ const Que = () => {
   };
 
 
-  const deleteQue = async (id) => {
+  const deleteArticle = async (id) => {
     try {
-      await axios.delete(`http://localhost:3001/api/que/${id}`);
+      await axios.delete(`http://localhost:3001/api/article/${id}`);
       fetchData();
     } catch (error) {
-      console.error("Error deleting que:", error);
+      console.error("Error deleting article:", error);
     }
   };
   
@@ -94,14 +99,16 @@ const Que = () => {
   return (
     <div className="admin-panel">
         <button onClick={handleAddNewItem}>Add new item</button>
-      {dataQue.map((item) => (
+      {dataArticle.map((item) => (
         <div key={item.id} className="item">
           <h2 onClick={() => handleFieldClick(item.id, 'title', item.title)}>{item.title}</h2>
-          <p onClick={() => handleFieldClick(item.id, 'description', item.description)}>{item.description}</p>
+          <p onClick={() => handleFieldClick(item.id, 'info1', item.info1)}>{item.info1}</p>
+          <p onClick={() => handleFieldClick(item.id, 'info2', item.info2)}>{item.info2}</p>
+          <p onClick={() => handleFieldClick(item.id, 'info3', item.info3)}>{item.info3}</p>
           
           <button
             className="btn btn-danger"
-            onClick={() => deleteQue(item.id)}
+            onClick={() => deleteArticle(item.id)}
           >
             Удалить
           </button>
@@ -112,4 +119,4 @@ const Que = () => {
   
 };
 
-export default Que;
+export default Article;
