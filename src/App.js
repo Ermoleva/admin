@@ -2,7 +2,9 @@
 import Aside from "./components/Aside/Aside";
 import { Route, Routes } from "react-router-dom";
 import Candy from "./components/Candies/Candy";
-import Lunch from "./components/Lunch/Lunch";
+import Lunch from "./components/Lunches/Lunch";
+import Question from "./components/Questions/Question";
+
 
 function App() {
   return (
@@ -11,7 +13,8 @@ function App() {
       <div className="content">
         <Routes>
           <Route path="/candyitem" element={<Candy />} />
-          <Route path="/lunch" element={<Lunch />} />
+          <Route path="/lunch" element={<Lunch/>} />
+          <Route path="/que" element={<Question/>} />
         </Routes>
       </div>
     </div>

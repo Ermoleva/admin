@@ -85,6 +85,16 @@ const Lunch = () => {
       }
     });
   };
+
+
+  const deleteLunch = async (id) => {
+    try {
+      await axios.delete(`/api/lunch/${id}`);
+      fetchData();
+    } catch (error) {
+      console.error("Error deleting lunch:", error);
+    }
+  };
   
   
 
@@ -100,6 +110,12 @@ const Lunch = () => {
           <p onClick={() => handleFieldClick(item.id, 'price', item.price)}>Price: {item.price}</p>
           <p onClick={() => handleFieldClick(item.id, 'count', item.count)}>Count: {item.count}</p>
           <p onClick={() => handleFieldClick(item.id, 'priceTotal', item.priceTotal)}>Price Total: {item.priceTotal}</p>
+          <button
+            className="btn btn-danger"
+            onClick={() => deleteLunch(item.id)}
+          >
+            Удалить
+          </button>
         </div>
       ))}
     </div>
