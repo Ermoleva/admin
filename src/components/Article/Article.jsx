@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import "./article.scss"
 import Swal from 'sweetalert2';
 
 const Article = () => {
@@ -97,17 +98,20 @@ const Article = () => {
   
 
   return (
-    <div className="admin-panel">
-        <button onClick={handleAddNewItem}>Add new item</button>
+    <div className="article">
+        <div className="article__top">
+            <h2 className="article__name">Статьи</h2>
+        <button className='article__add' onClick={handleAddNewItem}>+ Добавить статью</button>
+        </div>
       {dataArticle.map((item) => (
         <div key={item.id} className="item">
-          <h2 onClick={() => handleFieldClick(item.id, 'title', item.title)}>{item.title}</h2>
-          <p onClick={() => handleFieldClick(item.id, 'info1', item.info1)}>{item.info1}</p>
-          <p onClick={() => handleFieldClick(item.id, 'info2', item.info2)}>{item.info2}</p>
-          <p onClick={() => handleFieldClick(item.id, 'info3', item.info3)}>{item.info3}</p>
+          <h2 className='article__title' onClick={() => handleFieldClick(item.id, 'title', item.title)}>{item.title}</h2>
+          <p className='article__text' onClick={() => handleFieldClick(item.id, 'info1', item.info1)}>{item.info1}</p>
+          <p className='article__text' onClick={() => handleFieldClick(item.id, 'info2', item.info2)}>{item.info2}</p>
+          <p className='article__text' onClick={() => handleFieldClick(item.id, 'info3', item.info3)}>{item.info3}</p>
           
           <button
-            className="btn btn-danger"
+            className="article__del"
             onClick={() => deleteArticle(item.id)}
           >
             Удалить

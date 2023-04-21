@@ -50,7 +50,9 @@ const Lunch = () => {
       title: 'Add new item',
       html: `
         <input id="title" class="swal2-input" placeholder="Title">
-        <input id="description" class="swal2-input" placeholder="Description">
+        <input id="description1" class="swal2-input" placeholder="Description1">
+        <input id="description2" class="swal2-input" placeholder="Description2">
+        <input id="description3" class="swal2-input" placeholder="Description3">
         <input id="gram" class="swal2-input" placeholder="Gram">
         <input id="kcal" class="swal2-input" placeholder="Kcal">
         <input id="price" class="swal2-input" placeholder="Price">
@@ -62,7 +64,9 @@ const Lunch = () => {
         return {
           id: dataLunch.length + 1,
           title: document.getElementById('title').value,
-          description: document.getElementById('description').value,
+          description1: document.getElementById('description1').value,
+          description2: document.getElementById('description2').value,
+          description3: document.getElementById('description3').value,
           gram: document.getElementById('gram').value,
           kcal: document.getElementById('kcal').value,
           price: price,
@@ -109,7 +113,9 @@ const Lunch = () => {
         <div key={item.id} className="item">
           <h2 className='lunch__title' onClick={() => handleFieldClick(item.id, 'title', item.title)}>{item.title}</h2>
           <p className='lunch__text' onClick={() => handleFieldClick(item.id, 'gram', item.gram)}>Gram: {item.proteins}</p>
-          <p className='lunch__text' onClick={() => handleFieldClick(item.id, 'description', item.description)}>{item.description}</p>
+          <p className='lunch__text' onClick={() => handleFieldClick(item.id, 'description', item.description1)}>{item.description1}</p>
+          <p className='lunch__text' onClick={() => handleFieldClick(item.id, 'description', item.description2)}>{item.description2}</p>
+          <p className='lunch__text' onClick={() => handleFieldClick(item.id, 'description', item.description3)}>{item.description3}</p>
           <p className='lunch__text' onClick={() => handleFieldClick(item.id, 'kcal', item.kcal)}>Kcal: {item.kcal}</p>
           <p className='lunch__text' onClick={() => handleFieldClick(item.id, 'price', item.price)}>Price: {item.price}</p>
           <p className='lunch__text' onClick={() => handleFieldClick(item.id, 'count', item.count)}>Count: {item.count}</p>
