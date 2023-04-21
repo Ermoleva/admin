@@ -97,18 +97,18 @@ app.post('/api/data', express.json(), (req, res) => {
 
   
     app.get('/api/que', (req, res) => {
-      const dataQue = JSON.parse(fs.readFileSync(path.join(__dirname, 'questions.json'), 'utf8'));
+      const dataQue = JSON.parse(fs.readFileSync(path.join(__dirname, 'que.json'), 'utf8'));
       res.json(dataQue);
     });
     app.put('/api/que/:id', express.json(), (req, res) => {
         const { id } = req.params;
         const updatedQueItem = req.body;
       
-        const dataQue = JSON.parse(fs.readFileSync(path.join(__dirname, 'questions.json'), 'utf8'));
+        const dataQue = JSON.parse(fs.readFileSync(path.join(__dirname, 'que.json'), 'utf8'));
       
         const updatedQueData = dataQue.map((item) => (item.id === parseInt(id) ? updatedQueItem : item));
       
-        fs.writeFileSync(path.join(__dirname, 'questions.json'), JSON.stringify(updatedQueData), 'utf8');
+        fs.writeFileSync(path.join(__dirname, 'que.json'), JSON.stringify(updatedQueData), 'utf8');
       
         res.json({ status: 'success', message: 'Data updated successfully' });
       });
@@ -116,23 +116,23 @@ app.post('/api/data', express.json(), (req, res) => {
     app.post('/api/que', express.json(), (req, res) => {
         const newQueItem = req.body;
       
-        const dataQue = JSON.parse(fs.readFileSync(path.join(__dirname, 'questions.json'), 'utf8'));
+        const dataQue = JSON.parse(fs.readFileSync(path.join(__dirname, 'que.json'), 'utf8'));
       
         dataQue.push(newQueItem);
       
-        fs.writeFileSync(path.join(__dirname, 'questions.json'), JSON.stringify(dataQue), 'utf8');
+        fs.writeFileSync(path.join(__dirname, 'que.json'), JSON.stringify(dataQue), 'utf8');
       
         res.json({ status: 'success', message: 'New item added successfully' });
       });
   
       app.delete('/api/que/:id', (req, res) => {
         const id = parseInt(req.params.id);
-        const que = JSON.parse(fs.readFileSync(path.join(__dirname, 'questions.json'), 'utf8'));
+        const que = JSON.parse(fs.readFileSync(path.join(__dirname, 'que.json'), 'utf8'));
       
         const index = que.findIndex(que => que.id === id);
         if (index !== -1) {
           que.splice(index, 1);
-          fs.writeFileSync(path.join(__dirname, 'questions.json'), JSON.stringify(que, null, 2));
+          fs.writeFileSync(path.join(__dirname, 'que.json'), JSON.stringify(que, null, 2));
           res.status(200).json({ message: 'Question item deleted.' });
         } else {
           res.status(404).json({ message: 'Question item not found.' });
