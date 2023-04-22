@@ -8,7 +8,7 @@ const Que = () => {
 
   const fetchData = async () => {
     try {
-      const result = await axios.get('http://localhost:3001/api/que');
+      const result = await axios.get('http://localhost:3005/api/que');
       setDataQue(result.data);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -34,7 +34,7 @@ const Que = () => {
         const updatedQueItem = updatedQueData.find((item) => item.id === id);
   
         axios
-          .put(`http://localhost:3001/api/que/${id}`, updatedQueItem)
+          .put(`http://localhost:3005/api/que/${id}`, updatedQueItem)
           .then((response) => {
             console.log(response.data);
           })
@@ -68,7 +68,7 @@ const Que = () => {
         setDataQue([...dataQue, newQueItem]);
   
         axios
-          .post('http://localhost:3001/api/que', newQueItem)
+          .post('http://localhost:3005/api/que', newQueItem)
           .then((response) => {
             console.log(response.data);
           })
@@ -82,7 +82,7 @@ const Que = () => {
 
   const deleteQue = async (id) => {
     try {
-      await axios.delete(`http://localhost:3001/api/que/${id}`);
+      await axios.delete(`http://localhost:3005/api/que/${id}`);
       fetchData();
     } catch (error) {
       console.error("Error deleting que:", error);

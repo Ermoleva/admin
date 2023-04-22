@@ -8,7 +8,7 @@ const Article = () => {
 
   const fetchData = async () => {
     try {
-      const result = await axios.get('http://localhost:3001/api/article');
+      const result = await axios.get('http://localhost:3005/api/article');
       setDataArticle(result.data);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -34,7 +34,7 @@ const Article = () => {
         const updatedArticleItem = updatedArticleData.find((item) => item.id === id);
   
         axios
-          .put(`http://localhost:3001/api/article/${id}`, updatedArticleItem)
+          .put(`http://localhost:3005/api/article/${id}`, updatedArticleItem)
           .then((response) => {
             console.log(response.data);
           })
@@ -73,7 +73,7 @@ const Article = () => {
         setDataArticle([...dataArticle, newArticleItem]);
   
         axios
-          .post('http://localhost:3001/api/article', newArticleItem)
+          .post('http://localhost:3005/api/article', newArticleItem)
           .then((response) => {
             console.log(response.data);
           })
@@ -87,7 +87,7 @@ const Article = () => {
 
   const deleteArticle = async (id) => {
     try {
-      await axios.delete(`http://localhost:3001/api/article/${id}`);
+      await axios.delete(`http://localhost:3005/api/article/${id}`);
       fetchData();
     } catch (error) {
       console.error("Error deleting article:", error);

@@ -2,14 +2,17 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import "./lunch.scss"
 import Swal from 'sweetalert2';
+import api from '../../api/api';
 
 const Lunch = () => {
   const [dataLunch, setDataLunch] = useState([]);
 
   const fetchData = async () => {
     try {
-      const result = await axios.get('http://localhost:3001/api/lunch');
-      setDataLunch(result.data);
+      // const result = await axios.get('http://localhost:3005/api/lunch');
+      const result = (await api.get('/businesslunch')).data;
+      console.log('lunches', result);
+      setDataLunch(result);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -22,7 +25,7 @@ const Lunch = () => {
   const handleFieldClick = (id, field, fieldValue) => {
     Swal.fire({
       input: 'textarea',
-      inputValue: fieldValue,
+      inputValue: fieldValue + '',
       showCancelButton: true,
     }).then((result) => {
       if (result.isConfirmed) {
@@ -32,15 +35,10 @@ const Lunch = () => {
         setDataLunch(updatedLunchData);
   
         const updatedLunchItem = updatedLunchData.find((item) => item.id === id);
-  
-        axios
-          .put(`http://localhost:3001/api/lunch/${id}`, updatedLunchItem)
-          .then((response) => {
-            console.log(response.data);
-          })
-          .catch((error) => {
-            console.error('Error updating data:', error);
-          });
+
+        api.post('/businesslunch/update', updatedLunchItem)
+        .then(res => { console.log('buisinesslunch update', res.data) })
+        .catch(err => console.error(err));
       }
     });
   };
@@ -79,14 +77,9 @@ const Lunch = () => {
         const newItem = result.value;
         setDataLunch([...dataLunch, newItem]);
   
-        axios
-          .post('http://localhost:3001/api/lunch', newItem)
-          .then((response) => {
-            console.log(response.data);
-          })
-          .catch((error) => {
-            console.error('Error adding new item:', error);
-          });
+        api.post('/businesslunch/create', newItem)
+        .then(res => { console.log('buisinesslunch update', res.data) })
+        .catch(err => console.error(err));
       }
     });
   };
@@ -112,14 +105,14 @@ const Lunch = () => {
       {dataLunch.map((item) => (
         <div key={item.id} className="item">
           <h2 className='lunch__title' onClick={() => handleFieldClick(item.id, 'title', item.title)}>{item.title}</h2>
-          <p className='lunch__text' onClick={() => handleFieldClick(item.id, 'gram', item.gram)}>Gram: {item.proteins}</p>
+          <p className='lunch__text' onClick={() => handleFieldClick(item.id, 'gram', item.gram)}>Gram: {item.gram}</p>
           <p className='lunch__text' onClick={() => handleFieldClick(item.id, 'description', item.description1)}>{item.description1}</p>
           <p className='lunch__text' onClick={() => handleFieldClick(item.id, 'description', item.description2)}>{item.description2}</p>
           <p className='lunch__text' onClick={() => handleFieldClick(item.id, 'description', item.description3)}>{item.description3}</p>
           <p className='lunch__text' onClick={() => handleFieldClick(item.id, 'kcal', item.kcal)}>Kcal: {item.kcal}</p>
           <p className='lunch__text' onClick={() => handleFieldClick(item.id, 'price', item.price)}>Price: {item.price}</p>
-          <p className='lunch__text' onClick={() => handleFieldClick(item.id, 'count', item.count)}>Count: {item.count}</p>
-          <p className='lunch__text' onClick={() => handleFieldClick(item.id, 'priceTotal', item.priceTotal)}>Price Total: {item.priceTotal}</p>
+          {/* <p className='lunch__text' onClick={() => handleFieldClick(item.id, 'count', item.count)}>Count: {item.count}</p>
+          <p className='lunch__text' onClick={() => handleFieldClick(item.id, 'priceTotal', item.priceTotal)}>Price Total: {item.priceTotal}</p> */}
           <button
             className="lunch__del"
             onClick={() => deleteLunch(item.id)}

@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import "./candy.scss"
 import Swal from "sweetalert2";
-axios.defaults.baseURL = 'http://localhost:3001';
+
 const Candy = () => {
   const [data, setData] = useState([]);
 
   const fetchData = async () => {
     try {
-      const result = await axios.get("http://localhost:3001/api/data");
+      const result = await axios.get("http://localhost:3005/api/data");
       setData(result.data);
     } catch (error) {
       console.error("Error fetching data:", error);
@@ -34,7 +34,7 @@ const Candy = () => {
         const updatedItem = updatedData.find((item) => item.id === id);
 
         axios
-          .put(`http://localhost:3001/api/data/${id}`, updatedItem)
+          .put(`http://localhost:3005/api/data/${id}`, updatedItem)
           .then((response) => {
             console.log(response.data);
           })
@@ -80,7 +80,7 @@ const Candy = () => {
         setData([...data, newItem]);
 
         axios
-          .post("http://localhost:3001/api/data", newItem)
+          .post("http://localhost:3005/api/data", newItem)
           .then((response) => {
             console.log(response.data);
           })
