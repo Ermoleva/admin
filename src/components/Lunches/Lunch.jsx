@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import "./lunch.scss"
 import Swal from 'sweetalert2';
 import api from '../../api/api';
@@ -87,7 +86,7 @@ const Lunch = () => {
 
   const deleteLunch = async (id) => {
     try {
-      await axios.delete(`/api/lunch/${id}`);
+      await api.post('/businesslunch/delete', { id });
       fetchData();
     } catch (error) {
       console.error("Error deleting lunch:", error);
@@ -106,9 +105,9 @@ const Lunch = () => {
         <div key={item.id} className="item">
           <h2 className='lunch__title' onClick={() => handleFieldClick(item.id, 'title', item.title)}>{item.title}</h2>
           <p className='lunch__text' onClick={() => handleFieldClick(item.id, 'gram', item.gram)}>Gram: {item.gram}</p>
-          <p className='lunch__text' onClick={() => handleFieldClick(item.id, 'description', item.description1)}>{item.description1}</p>
-          <p className='lunch__text' onClick={() => handleFieldClick(item.id, 'description', item.description2)}>{item.description2}</p>
-          <p className='lunch__text' onClick={() => handleFieldClick(item.id, 'description', item.description3)}>{item.description3}</p>
+          <p className='lunch__text' onClick={() => handleFieldClick(item.id, 'description1', item.description1)}>{item.description1}</p>
+          <p className='lunch__text' onClick={() => handleFieldClick(item.id, 'description2', item.description2)}>{item.description2}</p>
+          <p className='lunch__text' onClick={() => handleFieldClick(item.id, 'description3', item.description3)}>{item.description3}</p>
           <p className='lunch__text' onClick={() => handleFieldClick(item.id, 'kcal', item.kcal)}>Kcal: {item.kcal}</p>
           <p className='lunch__text' onClick={() => handleFieldClick(item.id, 'price', item.price)}>Price: {item.price}</p>
           {/* <p className='lunch__text' onClick={() => handleFieldClick(item.id, 'count', item.count)}>Count: {item.count}</p>
