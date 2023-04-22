@@ -3,7 +3,7 @@ import tokens from "./tokens";
 import auth from './auth';
 
 const api = axios.create({
-    baseURL: "http://192.168.0.201:8080/api",
+    baseURL: "http://176.57.68.130:2956/api",
     withCredentials: false,
     headers: {
         'Access-Control-Allow-Origin': '*',
