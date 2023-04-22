@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import "./article.scss"
 import Swal from 'sweetalert2';
 import api from '../../api/api';
