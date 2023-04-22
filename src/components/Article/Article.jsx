@@ -2,14 +2,16 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import "./article.scss"
 import Swal from 'sweetalert2';
+import api from '../../api/api';
 
 const Article = () => {
   const [dataArticle, setDataArticle] = useState([]);
 
   const fetchData = async () => {
     try {
-      const result = await axios.get('http://localhost:3005/api/article');
-      setDataArticle(result.data);
+      const result = (await api.get('/blog')).data;
+      // const result = await axios.get('http://localhost:3005/api/article');
+      setDataArticle(result);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -33,14 +35,9 @@ const Article = () => {
   
         const updatedArticleItem = updatedArticleData.find((item) => item.id === id);
   
-        axios
-          .put(`http://localhost:3005/api/article/${id}`, updatedArticleItem)
-          .then((response) => {
-            console.log(response.data);
-          })
-          .catch((error) => {
-            console.error('Error updating data:', error);
-          });
+        api.post('/blog/update', updatedArticleItem)
+        .then(res => { console.log('blog update', res.data) })
+        .catch(err => console.error(err));
       }
     });
   };
@@ -60,7 +57,6 @@ const Article = () => {
       preConfirm: () => {
         
         return {
-          id: dataArticle.length + 1,
           title: document.getElementById('title').value,
           info1: document.getElementById('info1').value,
           info2: document.getElementById('info2').value,
@@ -72,14 +68,12 @@ const Article = () => {
         const newArticleItem = result.value;
         setDataArticle([...dataArticle, newArticleItem]);
   
-        axios
-          .post('http://localhost:3005/api/article', newArticleItem)
-          .then((response) => {
-            console.log(response.data);
-          })
-          .catch((error) => {
-            console.error('Error adding new item:', error);
-          });
+        api.post('/blog/create', newArticleItem)
+        .then(res => { 
+          newArticleItem.id = res.data.id;
+          console.log('blog create', res.data)
+        })
+        .catch(err => console.error(err));
       }
     });
   };
@@ -87,7 +81,7 @@ const Article = () => {
 
   const deleteArticle = async (id) => {
     try {
-      await axios.delete(`http://localhost:3005/api/article/${id}`);
+      await api.post('/blog/delete', { id });
       fetchData();
     } catch (error) {
       console.error("Error deleting article:", error);

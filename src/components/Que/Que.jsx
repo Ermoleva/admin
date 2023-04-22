@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import './que.scss'
 import Swal from 'sweetalert2';
+import api from '../../api/api';
 
 const Que = () => {
   const [dataQue, setDataQue] = useState([]);
 
   const fetchData = async () => {
     try {
-      const result = await axios.get('http://localhost:3005/api/que');
-      setDataQue(result.data);
+      const result = (await api.get('/faq')).data;
+      setDataQue(result);
     } catch (error) {
       console.error('Error fetching data:', error);
     }
@@ -32,15 +32,10 @@ const Que = () => {
         setDataQue(updatedQueData);
   
         const updatedQueItem = updatedQueData.find((item) => item.id === id);
-  
-        axios
-          .put(`http://localhost:3005/api/que/${id}`, updatedQueItem)
-          .then((response) => {
-            console.log(response.data);
-          })
-          .catch((error) => {
-            console.error('Error updating data:', error);
-          });
+
+        api.post('/faq/update', updatedQueItem)
+        .then(res => { console.log('faq update', res.data) })
+        .catch(err => console.error(err));
       }
     });
   };
@@ -57,7 +52,6 @@ const Que = () => {
       preConfirm: () => {
         
         return {
-          id: dataQue.length + 1,
           title: document.getElementById('title').value,
           description: document.getElementById('description').value
         };
@@ -67,14 +61,12 @@ const Que = () => {
         const newQueItem = result.value;
         setDataQue([...dataQue, newQueItem]);
   
-        axios
-          .post('http://localhost:3005/api/que', newQueItem)
-          .then((response) => {
-            console.log(response.data);
-          })
-          .catch((error) => {
-            console.error('Error adding new item:', error);
-          });
+        api.post('/faq/create', newQueItem)
+        .then(res => { 
+          newQueItem.id = res.data.id;
+          console.log('faq create', res.data)
+        })
+        .catch(err => console.error(err));
       }
     });
   };
@@ -82,7 +74,7 @@ const Que = () => {
 
   const deleteQue = async (id) => {
     try {
-      await axios.delete(`http://localhost:3005/api/que/${id}`);
+      await api.post('/faq/delete', { id });
       fetchData();
     } catch (error) {
       console.error("Error deleting que:", error);

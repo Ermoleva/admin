@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import "./candy.scss"
 import Swal from "sweetalert2";
+import api from "../../api/api";
 
 const Candy = () => {
   const [data, setData] = useState([]);
 
   const fetchData = async () => {
     try {
-      const result = await axios.get("http://localhost:3005/api/data");
-      setData(result.data);
+      const result = (await api.get('/candies')).data;
+      setData(result);
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -33,14 +33,9 @@ const Candy = () => {
 
         const updatedItem = updatedData.find((item) => item.id === id);
 
-        axios
-          .put(`http://localhost:3005/api/data/${id}`, updatedItem)
-          .then((response) => {
-            console.log(response.data);
-          })
-          .catch((error) => {
-            console.error("Error updating data:", error);
-          });
+        api.post('/candies/update', updatedItem)
+        .then(res => { console.log('candy update', res.data) })
+        .catch(err => console.error(err));
       }
     });
   };
@@ -62,7 +57,6 @@ const Candy = () => {
         const price = document.getElementById("price").value;
 
         return {
-          id: data.length + 1,
           title: document.getElementById("title").value,
           description: document.getElementById("description").value,
           proteins: document.getElementById("proteins").value,
@@ -70,8 +64,6 @@ const Candy = () => {
           carbohydrates: document.getElementById("carbohydrates").value,
           kcal: document.getElementById("kcal").value,
           price: price,
-          count: 0,
-          priceTotal: price,
         };
       },
     }).then((result) => {
@@ -79,21 +71,19 @@ const Candy = () => {
         const newItem = result.value;
         setData([...data, newItem]);
 
-        axios
-          .post("http://localhost:3005/api/data", newItem)
-          .then((response) => {
-            console.log(response.data);
-          })
-          .catch((error) => {
-            console.error("Error adding new item:", error);
-          });
+        api.post('/candies/create', newItem)
+        .then(res => { 
+          newItem.id = res.data.id;
+          console.log('candies create', res.data);
+        })
+        .catch(err => console.error(err));
       }
     });
   };
 
   const deleteCandy = async (id) => {
     try {
-      await axios.delete(`/api/data/${id}`);
+      await api.post('/candies/delete', { id });
       fetchData();
     } catch (error) {
       console.error("Error deleting candy:", error);
@@ -138,16 +128,6 @@ const Candy = () => {
           </p>
           <p className="candy__text" onClick={() => handleFieldClick(item.id, "price", item.price)}>
             Price: {item.price}
-          </p>
-          <p className="candy__text" onClick={() => handleFieldClick(item.id, "count", item.count)}>
-            Count: {item.count}
-          </p>
-          <p className="candy__text"
-            onClick={() =>
-              handleFieldClick(item.id, "priceTotal", item.priceTotal)
-            }
-          >
-            Price Total: {item.priceTotal}
           </p>
           <button
             className="candy__del"

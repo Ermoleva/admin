@@ -8,9 +8,7 @@ const Lunch = () => {
 
   const fetchData = async () => {
     try {
-      // const result = await axios.get('http://localhost:3005/api/lunch');
       const result = (await api.get('/businesslunch')).data;
-      console.log('lunches', result);
       setDataLunch(result);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -59,7 +57,6 @@ const Lunch = () => {
         const price = document.getElementById('price').value;
   
         return {
-          id: dataLunch.length + 1,
           title: document.getElementById('title').value,
           description1: document.getElementById('description1').value,
           description2: document.getElementById('description2').value,
@@ -67,8 +64,6 @@ const Lunch = () => {
           gram: document.getElementById('gram').value,
           kcal: document.getElementById('kcal').value,
           price: price,
-          count: 0,
-          priceTotal: price,
         };
       },
     }).then((result) => {
@@ -77,7 +72,10 @@ const Lunch = () => {
         setDataLunch([...dataLunch, newItem]);
   
         api.post('/businesslunch/create', newItem)
-        .then(res => { console.log('buisinesslunch update', res.data) })
+        .then(res => { 
+          newItem.id = res.data.id;
+          console.log('buisinesslunch create', res.data)
+        })
         .catch(err => console.error(err));
       }
     });
