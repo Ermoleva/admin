@@ -45,6 +45,15 @@ const Aside = () => {
           Articles
         </div>
       </Link>
+      <Link className="aside__link" to="/mealPlan">
+        <div
+          className={`aside__item${
+            isActive("/mealPlan") ? " aside__active" : ""
+          }`}
+        >
+          Meal Plan
+        </div>
+      </Link>
     </div>
   );
 };
