@@ -1,15 +1,1 @@
-[
-  {
-    "id": 1662,
-    "title": "Бизнес-ланч “Мясной”12",
-    "description1": "Бульон куриный с лапшой и яйцом ",
-    "description2": "Рис жареный с курицей ",
-    "description3": "Салат овощной с базиликово-медовой заправкой",
-    "image": "lunch-img.png",
-    "gram": 250,
-    "kcal": 346,
-    "price": 189,
-    "count": 0,
-    "priceTotal": 0
-  }
-]
+[{"id":1662,"title":"Бизнес-ланч “Мясной”12","description1":"Бульон куриный с лапшой и яйцом ","description2":"Рис жареный с курицей ","description3":"Салат овощной с базиликово-медовой заправкой","image":"lunch-img.png","gram":"250","kcal":346,"price":189,"count":0,"priceTotal":0,"description":"123апшой и яйцом"}]
