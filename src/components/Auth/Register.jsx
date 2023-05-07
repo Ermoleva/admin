@@ -36,7 +36,7 @@ const Register = () => {
         <input type="text" id="register-name"/>
         <p className="label">Email</p>
         <input type="text" id="register-email"/>
-        <p className="label">Phone (необязательно)</p>
+        <p className="label">Phone (необов'язково)</p>
         <input type="text" id="register-phone"/>
         <p className="label">Password</p>
         <input type="password" id="register-password"/>
