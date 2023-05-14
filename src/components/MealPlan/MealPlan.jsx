@@ -54,31 +54,51 @@ const MealPlan = () => {
       inputValue: program.plans[day][meal].text,
       showCancelButton: true,
     });
-
-    if (updatedText) {
+  
+    const { value: updatedGram } = await Swal.fire({
+      input: "number",
+      inputValue: program.plans[day][meal].gram,
+      showCancelButton: true,
+    });
+  
+    if (updatedText && updatedGram) {
       await api.post('/mealplan/edit', {
         id: program.id, 
         day, meal, 
-        text: updatedText
+        text: updatedText,
+        gram: updatedGram
       })
       program.plans[day][meal].text = updatedText;
+      program.plans[day][meal].gram = updatedGram;
       setPrograms([...programs])
     }
   };
 
   const addProgram = async () => {
-    const { value: name } = await Swal.fire({
+    const { value: name, isConfirmed: isNameConfirmed } = await Swal.fire({
       title: "Введите название программы",
       input: "text",
       showCancelButton: true,
     });
-
-    const { value: description } = await Swal.fire({
+  
+    if (!isNameConfirmed || !name) return;
+  
+    const { value: description, isConfirmed: isDescConfirmed } = await Swal.fire({
       title: "Введите описание программы",
       input: "textarea",
       showCancelButton: true,
     });
-
+  
+    if (!isDescConfirmed || !description) return;
+  
+    const { value: calories, isConfirmed: isCalConfirmed } = await Swal.fire({
+      title: "Введите калорийность программы",
+      input: "number",
+      showCancelButton: true,
+    });
+  
+    if (!isCalConfirmed || !calories) return;
+  
     let plans = {};
 
     for (const [dayOfWeek, localedDOW] of Object.entries(weekDays)) {
@@ -89,9 +109,13 @@ const MealPlan = () => {
           input: "text",
           showCancelButton: true,
         });
-        if (!isConfirmed || !text) continue;
-        // if (!isConfirmed) return;
-        plans[dayOfWeek][mealType] = { text, gram: 100 };
+        const { value: gram } = await Swal.fire({
+          title: `Введите граммы для блюда на ${localedMeal} на ${localedDOW}`,
+          input: "number",
+          showCancelButton: true,
+        });
+        if (!isConfirmed || !text || !gram) return;
+        plans[dayOfWeek][mealType] = { text, gram };
       }
     }
 
@@ -140,14 +164,13 @@ const MealPlan = () => {
               <h3>{localeDayOfWeek(dayOfWeek)}</h3>
               {Object.entries(meals).map(([type, {text, kcal, gram}]) => (
                 <div className={styles.program__item} key={type}>
-                  <h4 className={styles.program__name}>{localeMeals(type)} ({mealsTime(type)})</h4>
-                  {/* {meal.items.map((item) => ( */}
-                    <div className={styles.program__info}>
-                      <p onClick={() => editItem(program, dayOfWeek, type)}>{text}</p>
-                      {gram && (<span>{gram} гр.</span>)}
-                    </div>
-                  {/* ))} */}
+                <h4 className={styles.program__name}>{localeMeals(type)} ({mealsTime(type)})</h4>
+                <div className={styles.program__info}>
+                  <p onClick={() => editItem(program, dayOfWeek, type)}>{text}</p>
+                  {gram && (<span onClick={() => editItem(program, dayOfWeek, type)}>{gram} гр.</span>)}
+                  {kcal && (<span onClick={() => editItem(program, dayOfWeek, type)}>{kcal} ккал.</span>)}
                 </div>
+              </div>
               ))}
             </div>
           ))}
