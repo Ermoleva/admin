@@ -46,12 +46,17 @@ const Aside = () => {
         </div>
       </Link>
       <Link className="aside__link" to="/mealPlan">
-        <div
-          className={`aside__item${
-            isActive("/mealPlan") ? " aside__active" : ""
-          }`}
-        >
+        <div className={`aside__item${
+          isActive("/mealPlan") ? " aside__active" : ""
+        }`}>
           Meal Plan
+        </div>
+      </Link>
+      <Link className="aside__link" to="/gallery">
+        <div className={`aside__item${
+          isActive("/gallery") ? " aside__active" : ""
+        }`}>
+          Gallery
         </div>
       </Link>
     </div>

@@ -4,7 +4,7 @@ import tokens from "./tokens";
 const auth = {
     async refresh() {
         const refresh_token = tokens.getRefreshToken()
-        if (!refresh_token) return;
+        if (!refresh_token) throw new Error("No refresh token");
         const result = (await api.post('/auth/refresh', { refresh_token })).data;
         if (!result) throw new Error("No tokens getted from /auth/refresh");
         tokens.setTokens(result);
