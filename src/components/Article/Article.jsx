@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import "./article.scss"
 import Swal from 'sweetalert2';
 import api from '../../api/api';
+import tokens from '../../api/tokens';
 
 const Article = () => {
   const [dataArticle, setDataArticle] = useState([]);
@@ -87,7 +88,26 @@ const Article = () => {
     }
   };
   
-  
+  function submitForm(e, item, imageId) {
+    e.preventDefault();
+    const files = document.querySelector(`.article #article${item.id} .image-input${imageId}`);
+    if (!files) throw "No file";
+    const formData = new FormData();
+    formData.append("files", files.files[0]);
+    fetch(api.getUri()+"/blog/image/"+item.id+"-"+imageId, {
+        method: 'POST',
+        headers: { 'Authorization': tokens.getToken() },
+        body: formData,
+    }).then((res) => {
+        res.json().then(j => {
+            setTimeout(() => {
+                console.log('added file', j);
+                fetchData();
+            }, 500);
+        })
+    })
+    .catch((err) => console.log("Error occured", err));
+  }
   
 
   return (
@@ -97,11 +117,31 @@ const Article = () => {
         <button className='article__add' onClick={handleAddNewItem}>+ Добавить статью</button>
         </div>
       {dataArticle.map((item) => (
-        <div key={item.id} className="item">
+        <div key={item.id} id={'article'+item.id} className="item">
           <h2 className='article__title' onClick={() => handleFieldClick(item.id, 'title', item.title)}>{item.title}</h2>
           <p className='article__text' onClick={() => handleFieldClick(item.id, 'info1', item.info1)}>{item.info1}</p>
+          <div className="candy__image_container">
+            <img src={!item.image1 ? '' : (api.getUri() + '/blog/image/' + item.image1)}
+              className="uploaded-image" alt="No image" width={250}/>
+            <input className="image-input image-input1" type="file" 
+              onChange={(e) => submitForm(e, item, 1)} />
+          </div>
+          
           <p className='article__text' onClick={() => handleFieldClick(item.id, 'info2', item.info2)}>{item.info2}</p>
+          <div className="candy__image_container">
+            <img src={!item.image2 ? '' : (api.getUri() + '/blog/image/' + item.image2)}
+              className="uploaded-image" alt="No image" width={250}/>
+            <input className="image-input image-input2" type="file" 
+              onChange={(e) => submitForm(e, item, 2)} />
+          </div>
+
           <p className='article__text' onClick={() => handleFieldClick(item.id, 'info3', item.info3)}>{item.info3}</p>
+          <div className="candy__image_container">
+            <img src={!item.image3 ? '' : (api.getUri() + '/blog/image/' + item.image3)}
+              className="uploaded-image" alt="No image" width={250}/>
+            <input className="image-input image-input3" type="file" 
+              onChange={(e) => submitForm(e, item, 3)} />
+          </div>
           
           <button
             className="article__del"

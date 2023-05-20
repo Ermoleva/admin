@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import "./lunch.scss"
 import Swal from 'sweetalert2';
 import api from '../../api/api';
+import tokens from '../../api/tokens';
 
 const Lunch = () => {
   const [dataLunch, setDataLunch] = useState([]);
@@ -92,6 +93,26 @@ const Lunch = () => {
   };
   
   
+  function submitForm(e, item) {
+    e.preventDefault();
+    const files = document.querySelector(`.lunch #lunch${item.id} .image-input`);
+    if (!files) throw "No file";
+    const formData = new FormData();
+    formData.append("files", files.files[0]);
+    fetch(api.getUri()+"/businesslunch/image/"+item.id, {
+        method: 'POST',
+        headers: { 'Authorization': tokens.getToken() },
+        body: formData,
+    }).then((res) => {
+        res.json().then(j => {
+            setTimeout(() => {
+                console.log('added file', j);
+                fetchData();
+            }, 500);
+        })
+    })
+    .catch((err) => console.log("Error occured", err));
+  }
 
   return (
     <div className="lunch">
@@ -100,7 +121,7 @@ const Lunch = () => {
         <button className='lunch__add' onClick={handleAddNewItem}>+ Добавить новый продукт</button>
         </div>
       {dataLunch.map((item) => (
-        <div key={item.id} className="item">
+        <div key={item.id} id={"lunch"+item.id} className="item">
           <h2 className='lunch__title' onClick={() => handleFieldClick(item.id, 'title', item.title)}>{item.title}</h2>
           <p className='lunch__text' onClick={() => handleFieldClick(item.id, 'gram', item.gram)}>Gram: {item.gram}</p>
           <p className='lunch__text' onClick={() => handleFieldClick(item.id, 'description1', item.description1)}>{item.description1}</p>
@@ -110,12 +131,15 @@ const Lunch = () => {
           <p className='lunch__text' onClick={() => handleFieldClick(item.id, 'price', item.price)}>Price: {item.price}</p>
           {/* <p className='lunch__text' onClick={() => handleFieldClick(item.id, 'count', item.count)}>Count: {item.count}</p>
           <p className='lunch__text' onClick={() => handleFieldClick(item.id, 'priceTotal', item.priceTotal)}>Price Total: {item.priceTotal}</p> */}
-          <button
-            className="lunch__del"
+          <div className="candy__image_container">
+            <img src={!item.image ? '' : (api.getUri() + '/businesslunch/image/' + item.image)}
+            className="uploaded-image" alt="No image" width={250}/>
+            <input className="image-input" type="file" onChange={(e) => submitForm(e, item)} />
+          </div>
+
+          <button className="lunch__del"
             onClick={() => deleteLunch(item.id)}
-          >
-            X Удалить
-          </button>
+          >X Удалить</button>
         </div>
       ))}
     </div>

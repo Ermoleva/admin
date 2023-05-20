@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import "./candy.scss"
 import Swal from "sweetalert2";
 import api from "../../api/api";
+import tokens from "../../api/tokens";
 
 const Candy = () => {
   const [data, setData] = useState([]);
@@ -90,51 +91,66 @@ const Candy = () => {
     }
   };
 
+  function submitForm(e, item) {
+    e.preventDefault();
+    const files = document.querySelector(`.candy #candy${item.id} .image-input`);
+    if (!files) throw "No file";
+    const formData = new FormData();
+    formData.append("files", files.files[0]);
+    fetch(api.getUri()+"/candies/image/"+item.id, {
+        method: 'POST',
+        headers: { 'Authorization': tokens.getToken() },
+        body: formData,
+    }).then((res) => {
+        res.json().then(j => {
+            setTimeout(() => {
+                console.log('added file', j);
+                fetchData();
+            }, 500);
+        })
+    })
+    .catch((err) => console.log("Error occured", err));
+  }
+
   return (
     <div className="candy">
       <div className="candy__top">
-      <h1 className="candy__name">Candies</h1>
-      <button className="candy__add" onClick={handleAddNewItem}>+Добавить новый продукт</button>
+        <h1 className="candy__name">Candies</h1>
+        <button className="candy__add" onClick={handleAddNewItem}>
+          +Добавить новый продукт
+        </button>
       </div>
       {data.map((item) => (
-        <div key={item.id} className="item">
-          <h2 className="candy__title" onClick={() => handleFieldClick(item.id, "title", item.title)}>
-            {item.title}
-          </h2>
-          <p className="candy__text"
-            onClick={() =>
-              handleFieldClick(item.id, "description", item.description)
-            }
-          >
-            {item.description}
-          </p>
-          <p className="candy__text"
-            onClick={() => handleFieldClick(item.id, "proteins", item.proteins)}
-          >
-            Proteins: {item.proteins}
-          </p>
-          <p className="candy__text" onClick={() => handleFieldClick(item.id, "fats", item.fats)}>
-            Fats: {item.fats}
-          </p>
-          <p className="candy__text"
-            onClick={() =>
-              handleFieldClick(item.id, "carbohydrates", item.carbohydrates)
-            }
-          >
-            Carbohydrates: {item.carbohydrates}
-          </p>
-          <p className="candy__text" onClick={() => handleFieldClick(item.id, "kcal", item.kcal)}>
-            Kcal: {item.kcal}
-          </p>
-          <p className="candy__text" onClick={() => handleFieldClick(item.id, "price", item.price)}>
-            Price: {item.price}
-          </p>
-          <button
-            className="candy__del"
-            onClick={() => deleteCandy(item.id)}
-          >
-            X Удалить
-          </button>
+        <div key={item.id} id={"candy"+item.id} className="item">
+          <h2 className="candy__title" onClick={() => 
+            handleFieldClick(item.id, "title", item.title)
+          }>{item.title}</h2>
+          <p className="candy__text" onClick={() =>
+            handleFieldClick(item.id, "description", item.description)
+          }>{item.description}</p>
+          <p className="candy__text" onClick={() => 
+            handleFieldClick(item.id, "proteins", item.proteins)
+          }>Proteins: {item.proteins}</p>
+          <p className="candy__text" onClick={() => 
+            handleFieldClick(item.id, "fats", item.fats)
+          }>Fats: {item.fats}</p>
+          <p className="candy__text" onClick={() =>
+            handleFieldClick(item.id, "carbohydrates", item.carbohydrates)
+          }>Carbohydrates: {item.carbohydrates}</p>
+          <p className="candy__text" onClick={() => 
+            handleFieldClick(item.id, "kcal", item.kcal)
+          }>Kcal: {item.kcal}</p>
+          <p className="candy__text" onClick={() => 
+            handleFieldClick(item.id, "price", item.price)
+          }>Price: {item.price}</p>
+          <div className="candy__image_container">
+            <img src={!item.image ? '' : (api.getUri() + '/candies/image/' + item.image)}
+            className="uploaded-image" alt="No image" width={250}/>
+            <input className="image-input" type="file" onChange={(e) => submitForm(e, item)} />
+          </div>
+          <button className="candy__del" onClick={() => 
+            deleteCandy(item.id)
+          }>X Удалить</button>
         </div>
       ))}
     </div>
