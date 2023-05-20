@@ -119,29 +119,29 @@ const Article = () => {
       {dataArticle.map((item) => (
         <div key={item.id} id={'article'+item.id} className="item">
           <h2 className='article__title' onClick={() => handleFieldClick(item.id, 'title', item.title)}>{item.title}</h2>
-          <p className='article__text' onClick={() => handleFieldClick(item.id, 'info1', item.info1)}>{item.info1}</p>
-          <div className="candy__image_container">
+          <div className="article__image_container">
             <img src={!item.image1 ? '' : (api.getUri() + '/blog/image/' + item.image1)}
               className="uploaded-image" alt="No image" width={250}/>
             <input className="image-input image-input1" type="file" 
               onChange={(e) => submitForm(e, item, 1)} />
           </div>
+          <p className='article__text' onClick={() => handleFieldClick(item.id, 'info1', item.info1)}>{item.info1}</p>
           
-          <p className='article__text' onClick={() => handleFieldClick(item.id, 'info2', item.info2)}>{item.info2}</p>
-          <div className="candy__image_container">
+          <div className="article__image_container">
             <img src={!item.image2 ? '' : (api.getUri() + '/blog/image/' + item.image2)}
               className="uploaded-image" alt="No image" width={250}/>
             <input className="image-input image-input2" type="file" 
               onChange={(e) => submitForm(e, item, 2)} />
           </div>
+          <p className='article__text' onClick={() => handleFieldClick(item.id, 'info2', item.info2)}>{item.info2}</p>
 
-          <p className='article__text' onClick={() => handleFieldClick(item.id, 'info3', item.info3)}>{item.info3}</p>
-          <div className="candy__image_container">
+          <div className="article__image_container">
             <img src={!item.image3 ? '' : (api.getUri() + '/blog/image/' + item.image3)}
               className="uploaded-image" alt="No image" width={250}/>
             <input className="image-input image-input3" type="file" 
               onChange={(e) => submitForm(e, item, 3)} />
           </div>
+          <p className='article__text' onClick={() => handleFieldClick(item.id, 'info3', item.info3)}>{item.info3}</p>
           
           <button
             className="article__del"
